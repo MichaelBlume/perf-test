@@ -18,10 +18,23 @@
     (inc x)
     (dec x)))
 
+(defn locking-part [x l]
+  (monitor-enter l)
+  (let [res (dec x)]
+    (monitor-exit l)
+    res))
+
+(defn baz [x]
+  (if (> x 0)
+    (inc x)
+    (locking-part x o)))
+
 (defn -main []
   (println "benching foo")
   (bench (foo 5) :verbose) 
   (println "benching bar")
   (bench (bar 5) :verbose)
+  (println "benching baz")
+  (bench (baz 5) :verbose)
   (println "done benching"))
 
