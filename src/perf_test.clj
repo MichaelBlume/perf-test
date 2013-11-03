@@ -1,4 +1,5 @@
 (ns perf-test
+  (:import (PerfTest))
   (:use (criterium core))
   (:gen-class))
 
@@ -36,5 +37,14 @@
   (bench (bar 5) :verbose)
   (println "benching baz")
   (bench (baz 5) :verbose)
+
+  (println "benching java port")
+
+  (println "benching foo")
+  (bench (PerfTest/foo 5) :verbose)
+  (println "benching bar")
+  (bench (PerfTest/bar 5) :verbose)
+  (println "benching baz")
+  (bench (PerfTest/baz 5) :verbose)
   (println "done benching"))
 
